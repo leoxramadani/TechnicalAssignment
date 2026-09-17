@@ -3,6 +3,7 @@ using Claims.Domain.Enums;
 using Claims.Services.CoversServices;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Asp.Versioning;
 
 namespace Claims.Controllers;
 
@@ -10,7 +11,8 @@ namespace Claims.Controllers;
 /// Controller for managing insurance covers and computing premiums.
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[ApiVersion("1.0")]
+[Route("v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 public class CoversController : ControllerBase
 {
