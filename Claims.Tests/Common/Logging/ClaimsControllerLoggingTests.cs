@@ -1,4 +1,4 @@
-namespace Claims.Tests.Common;
+namespace Claims.Tests.Common.Logging;
 
 using Claims.Common.Logging;
 using Claims.Controllers;
