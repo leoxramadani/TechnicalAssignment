@@ -1,10 +1,10 @@
-# ??? Claims API — Backend Technical Assessment
+# Claims API — Backend Technical Assessment
 
 A RESTful Web API built with **.NET 10** for managing insurance claims and covers. This project was developed as part of a technical assessment and demonstrates clean architecture, validation, asynchronous processing, and full API documentation.
 
 ---
 
-## ?? Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -30,7 +30,7 @@ https://localhost:<port>/swagger
 
 ---
 
-## ? Tasks Completed
+## Tasks Completed
 
 ### Task 1 — Refactoring & SOLID Principles
 
@@ -86,7 +86,7 @@ Fixed several bugs in the cover premium computation logic:
 
 ---
 
-## ??? Database Architecture
+## Database Architecture
 
 | Database | Purpose |
 |----------|---------|
@@ -97,7 +97,7 @@ Both databases are spun up automatically via **Testcontainers** for local develo
 
 ---
 
-## ?? API Documentation (Swagger)
+## API Documentation (Swagger)
 
 The API is fully documented with **Swagger / OpenAPI**:
 
@@ -121,7 +121,7 @@ The API is fully documented with **Swagger / OpenAPI**:
 
 ---
 
-## ?? Tech Stack
+## Tech Stack
 
 | Technology | Usage |
 |------------|-------|
@@ -136,7 +136,7 @@ The API is fully documented with **Swagger / OpenAPI**:
 
 ---
 
-## ?? Project Structure
+## Project Structure
 
 ```
 backend-coding-task/
