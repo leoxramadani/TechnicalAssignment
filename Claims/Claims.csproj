@@ -1,22 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>eaee99fa-fdec-46c1-8b4f-056769d8aeb4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
+    <PackageReference Include="MongoDB.Driver" Version="3.6.0" />
+    <PackageReference Include="MongoDB.Bson" Version="3.6.0" />
+    <PackageReference Include="FluentAssertions" Version="8.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
-    <PackageReference Include="MongoDB.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MongoDB.EntityFrameworkCore" Version="10.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
     <PackageReference Include="Testcontainers.MongoDb" Version="4.6.0" />
     <PackageReference Include="Testcontainers.MsSql" Version="4.6.0" />
+    <PackageReference Include="SSH.NET" Version="2026.0.0" />
+    <PackageReference Include="Snappier" Version="1.3.1" />
+    <PackageReference Include="SharpCompress" Version="0.48.0" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,8 @@
-﻿namespace Claims.Auditing
+﻿namespace Claims.Domain.Entities
 {
+    /// <summary>
+    /// Represents an audit record for a claim, capturing relevant information such as the claim ID, creation timestamp, and HTTP request type.
+    /// </summary>
     public class ClaimAudit
     {
         public int Id { get; set; }

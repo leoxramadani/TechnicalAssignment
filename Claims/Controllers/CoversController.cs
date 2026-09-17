@@ -1,98 +1,126 @@
-using Claims.Auditing;
+using Claims.Domain.Entities;
+using Claims.Domain.Enums;
+using Claims.Services.CoversServices;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Claims.Controllers;
 
+/// <summary>
+/// Controller for managing insurance covers and computing premiums.
+/// </summary>
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
 public class CoversController : ControllerBase
 {
-    private readonly ClaimsContext _claimsContext;
     private readonly ILogger<CoversController> _logger;
-    private readonly Auditer _auditer;
+    private readonly ICoversService _coversService;
+    private readonly IValidator<Cover> _validator;
 
-    public CoversController(ClaimsContext claimsContext, AuditContext auditContext, ILogger<CoversController> logger)
+    public CoversController(ILogger<CoversController> logger, ICoversService coversService, IValidator<Cover> validator)
     {
-        _claimsContext = claimsContext;
         _logger = logger;
-        _auditer = new Auditer(auditContext);
+        _coversService = coversService;
+        _validator = validator;
     }
 
+    /// <summary>
+    /// Computes the insurance premium for a specified period and cover type.
+    /// </summary>
+    /// <param name="startDate">Start date of the cover.</param>
+    /// <param name="endDate">End date of the cover.</param>
+    /// <param name="coverType">Type of cover.</param>
+    /// <returns>The computed premium amount.</returns>
     [HttpPost("compute")]
-    public async Task<ActionResult> ComputePremiumAsync(DateTime startDate, DateTime endDate, CoverType coverType)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public ActionResult<decimal> ComputePremium(DateTime startDate, DateTime endDate, CoverTypeEnum coverType)
     {
-        return Ok(ComputePremium(startDate, endDate, coverType));
+        _logger.LogInformation("Computing premium for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", coverType, startDate, endDate);
+        var premium = _coversService.ComputePremium(startDate, endDate, coverType);
+        _logger.LogInformation("Computed premium: {Premium} for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", premium, coverType, startDate, endDate);
+        return Ok(premium);
     }
 
+    /// <summary>
+    /// Retrieves all covers.
+    /// </summary>
+    /// <returns>A list of covers.</returns>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Cover>>> GetAsync()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<IEnumerable<Cover>>> GetAsync(CancellationToken cancellationToken)
     {
-        var results = await _claimsContext.Covers.ToListAsync();
+        _logger.LogInformation("Fetching all covers.");
+        var results = await _coversService.GetCoversAsync(cancellationToken);
+        _logger.LogInformation("Fetched {Count} covers.", results.Count());
         return Ok(results);
     }
 
+    /// <summary>
+    /// Retrieves a cover by its identifier.
+    /// </summary>
+    /// <param name="id">The cover identifier.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The cover if found, or 404 if not found.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<Cover>> GetAsync(string id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Cover>> GetAsync(string id, CancellationToken cancellationToken)
     {
-        var results = await _claimsContext.Covers.ToListAsync();
-        return Ok(results.SingleOrDefault(cover => cover.Id == id));
-    }
+        var cover = await _coversService.GetCoverByIdAsync(id, cancellationToken);
+        if (cover is null)
+        {
+            return NotFound();
+        }
 
-    [HttpPost]
-    public async Task<ActionResult> CreateAsync(Cover cover)
-    {
-        cover.Id = Guid.NewGuid().ToString();
-        cover.Premium = ComputePremium(cover.StartDate, cover.EndDate, cover.Type);
-        _claimsContext.Covers.Add(cover);
-        await _claimsContext.SaveChangesAsync();
-        _auditer.AuditCover(cover.Id, "POST");
         return Ok(cover);
     }
 
-    [HttpDelete("{id}")]
-    public async Task DeleteAsync(string id)
+    /// <summary>
+    /// Creates a new cover and calculates its premium.
+    /// </summary>
+    /// <param name="cover">The cover details.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>The created cover with computed premium.</returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Cover>> CreateAsync([FromBody] Cover cover, CancellationToken cancellationToken)
     {
-        _auditer.AuditCover(id, "DELETE");
-        var cover = await _claimsContext.Covers.Where(cover => cover.Id == id).SingleOrDefaultAsync();
-        if (cover is not null)
+        var validationResult = await _validator.ValidateAsync(cover, cancellationToken);
+        _logger.LogInformation("Attempting to create a new cover of type {CoverType} from {StartDate} to {EndDate}.", cover.Type, cover.StartDate, cover.EndDate);
+        if (!validationResult.IsValid)
         {
-            _claimsContext.Covers.Remove(cover);
-            await _claimsContext.SaveChangesAsync();
+            _logger.LogError("Validation failed for cover creation: {Errors}", validationResult.Errors);
+            return BadRequest(validationResult.Errors);
         }
+
+        var created = await _coversService.CreateCoverAsync(cover, cancellationToken);
+        _logger.LogInformation("Cover created successfully with ID: {Id}", created.Id);
+        return Created("/covers",created);
     }
 
-    private decimal ComputePremium(DateTime startDate, DateTime endDate, CoverType coverType)
+    /// <summary>
+    /// Deletes a cover by its identifier.
+    /// </summary>
+    /// <param name="id">The cover identifier.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>204 NoContent if deleted, or 404 NotFound if not found.</returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(string id, CancellationToken cancellationToken)
     {
-        var multiplier = 1.3m;
-        if (coverType == CoverType.Yacht)
+        var deleted = await _coversService.DeleteCoverAsync(id, cancellationToken);
+        _logger.LogInformation("Attempting to delete cover with ID: {Id}", id);
+        if (!deleted)
         {
-            multiplier = 1.1m;
+            _logger.LogWarning("Cover with ID: {Id} not found for deletion.", id);
+            return NotFound();
         }
-
-        if (coverType == CoverType.PassengerShip)
-        {
-            multiplier = 1.2m;
-        }
-
-        if (coverType == CoverType.Tanker)
-        {
-            multiplier = 1.5m;
-        }
-
-        var premiumPerDay = 1250 * multiplier;
-        var insuranceLength = (endDate - startDate).TotalDays;
-        var totalPremium = 0m;
-
-        for (var i = 0; i < insuranceLength; i++)
-        {
-            if (i < 30) totalPremium += premiumPerDay;
-            if (i < 180 && coverType == CoverType.Yacht) totalPremium += premiumPerDay - premiumPerDay * 0.05m;
-            else if (i < 180) totalPremium += premiumPerDay - premiumPerDay * 0.02m;
-            if (i < 365 && coverType != CoverType.Yacht) totalPremium += premiumPerDay - premiumPerDay * 0.03m;
-            else if (i < 365) totalPremium += premiumPerDay - premiumPerDay * 0.08m;
-        }
-
-        return totalPremium;
+        
+        _logger.LogInformation("Cover with ID: {Id} deleted successfully.", id);
+        return NoContent();
     }
 }

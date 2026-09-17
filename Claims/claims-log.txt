@@ -1,0 +1,671 @@
+[2026-09-17 13:53:56.443] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (39ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 13:53:56.485] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 13:53:56.519] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 13:53:56.854] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (23ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 13:53:56.897] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 13:53:56.904] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 13:53:56.926] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 13:53:56.998] [Information] [Microsoft.EntityFrameworkCore.Migrations] Applying migration '20220728113129_1stMigration'.
+[2026-09-17 13:53:57.100] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [ClaimAudits] (
+    [Id] int NOT NULL IDENTITY,
+    [ClaimId] nvarchar(max) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [HttpRequestType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_ClaimAudits] PRIMARY KEY ([Id])
+);
+[2026-09-17 13:53:57.105] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [CoverAudits] (
+    [Id] int NOT NULL IDENTITY,
+    [CoverId] nvarchar(max) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [HttpRequestType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_CoverAudits] PRIMARY KEY ([Id])
+);
+[2026-09-17 13:53:57.114] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220728113129_1stMigration', N'10.0.12');
+[2026-09-17 13:53:57.127] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 13:53:58.047] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 13:53:58.049] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 13:53:58.570] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 13:53:58.572] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 13:53:58.574] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 13:54:08.897] [Information] [Claims.Controllers.ClaimsController] Retrieving all claims.
+[2026-09-17 14:00:09.210] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:00:09.236] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:00:09.265] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (23ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:00:09.487] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:00:09.501] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:00:09.503] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:00:09.518] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:00:09.534] [Information] [Microsoft.EntityFrameworkCore.Migrations] Applying migration '20220728113129_1stMigration'.
+[2026-09-17 14:00:09.563] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [ClaimAudits] (
+    [Id] int NOT NULL IDENTITY,
+    [ClaimId] nvarchar(max) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [HttpRequestType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_ClaimAudits] PRIMARY KEY ([Id])
+);
+[2026-09-17 14:00:09.567] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [CoverAudits] (
+    [Id] int NOT NULL IDENTITY,
+    [CoverId] nvarchar(max) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [HttpRequestType] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_CoverAudits] PRIMARY KEY ([Id])
+);
+[2026-09-17 14:00:09.571] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220728113129_1stMigration', N'10.0.12');
+[2026-09-17 14:00:09.573] [Information] [Microsoft.EntityFrameworkCore.Migrations] Applying migration '20260917135859_MigrationName'.
+[2026-09-17 14:00:09.681] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (96ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @var nvarchar(max);
+SELECT @var = QUOTENAME([d].[name])
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CoverAudits]') AND [c].[name] = N'HttpRequestType');
+IF @var IS NOT NULL EXEC(N'ALTER TABLE [CoverAudits] DROP CONSTRAINT ' + @var + ';');
+ALTER TABLE [CoverAudits] ALTER COLUMN [HttpRequestType] nvarchar(max) NULL;
+[2026-09-17 14:00:09.703] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (22ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @var1 nvarchar(max);
+SELECT @var1 = QUOTENAME([d].[name])
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[CoverAudits]') AND [c].[name] = N'CoverId');
+IF @var1 IS NOT NULL EXEC(N'ALTER TABLE [CoverAudits] DROP CONSTRAINT ' + @var1 + ';');
+ALTER TABLE [CoverAudits] ALTER COLUMN [CoverId] nvarchar(max) NULL;
+[2026-09-17 14:00:09.734] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @var2 nvarchar(max);
+SELECT @var2 = QUOTENAME([d].[name])
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ClaimAudits]') AND [c].[name] = N'HttpRequestType');
+IF @var2 IS NOT NULL EXEC(N'ALTER TABLE [ClaimAudits] DROP CONSTRAINT ' + @var2 + ';');
+ALTER TABLE [ClaimAudits] ALTER COLUMN [HttpRequestType] nvarchar(max) NULL;
+[2026-09-17 14:00:10.702] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @var3 nvarchar(max);
+SELECT @var3 = QUOTENAME([d].[name])
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ClaimAudits]') AND [c].[name] = N'ClaimId');
+IF @var3 IS NOT NULL EXEC(N'ALTER TABLE [ClaimAudits] DROP CONSTRAINT ' + @var3 + ';');
+ALTER TABLE [ClaimAudits] ALTER COLUMN [ClaimId] nvarchar(max) NULL;
+[2026-09-17 14:00:10.705] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260917135859_MigrationName', N'10.0.12');
+[2026-09-17 14:00:10.713] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:09:48.524] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (79ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:09:48.590] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:09:48.637] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (38ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:09:49.124] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:09:49.145] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:09:49.149] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:09:49.160] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:09:49.181] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 14:09:49.185] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:09:49.768] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 14:09:49.770] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 14:09:50.723] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 14:09:50.727] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 14:09:50.732] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 14:10:03.355] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: string, DamageCost: 200
+[2026-09-17 14:16:50.635] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (64ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:16:50.698] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:16:50.788] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (78ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:16:51.196] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:16:51.217] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:16:51.220] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:16:51.232] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:16:51.264] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 14:16:51.287] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:16:51.969] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 14:16:51.971] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 14:16:52.187] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 14:16:52.189] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 14:16:52.191] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 14:17:11.549] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: string, DamageCost: 0
+[2026-09-17 14:17:59.819] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (66ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:17:59.882] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:17:59.950] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (58ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:18:00.438] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:18:00.468] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:18:00.475] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:18:00.491] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:18:00.521] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 14:18:00.531] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:18:01.151] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 14:18:01.154] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 14:18:01.803] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 14:18:01.806] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 14:18:01.809] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 14:18:17.599] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: string, DamageCost: 0
+[2026-09-17 14:18:51.727] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:18:51.766] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:18:51.834] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (57ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:18:52.203] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:18:52.227] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:18:52.231] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:18:52.241] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:18:52.263] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 14:18:52.272] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:18:52.934] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 14:18:52.936] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 14:18:53.510] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 14:18:53.515] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 14:18:53.521] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 14:18:59.626] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: string, DamageCost: 0
+[2026-09-17 14:19:01.286] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 14:19:01.305] [Warning] [Claims.Controllers.ClaimsController] Claim validation failed with 2 errors: DamageCost must be greater than 0.; The related Cover does not exist.
+[2026-09-17 14:19:11.072] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: string, DamageCost: 1220
+[2026-09-17 14:19:11.220] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 14:19:11.225] [Warning] [Claims.Controllers.ClaimsController] Claim validation failed with 1 errors: The related Cover does not exist.
+[2026-09-17 14:19:30.255] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 14:19:18 to 09/17/2027 14:19:18.
+[2026-09-17 14:19:30.789] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.3497 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 14:19:31.154] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (379.1983 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 14:19:31.175] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: f837c6fc-978c-4960-a506-c3b9d8275522
+[2026-09-17 14:19:31.342] [Error] [Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No route matches the supplied values.
+   at Microsoft.AspNetCore.Mvc.CreatedAtActionResult.OnFormatting(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncCore(ActionContext context, ObjectResult result, Type objectType, Object value)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsync(ActionContext context, ObjectResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+[2026-09-17 14:19:31.884] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (133ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 14:20:20.541] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 14:19:18 to 09/17/2027 14:19:18.
+[2026-09-17 14:20:24.831] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.0897 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 14:20:24.895] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (64.1842 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 14:20:28.331] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: 1de80684-8ff5-44a2-aadc-3e61a68d5e4d
+[2026-09-17 14:20:38.389] [Error] [Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No route matches the supplied values.
+   at Microsoft.AspNetCore.Mvc.CreatedAtActionResult.OnFormatting(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncCore(ActionContext context, ObjectResult result, Type objectType, Object value)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsync(ActionContext context, ObjectResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+[2026-09-17 14:20:51.073] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (17ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 14:39:51.092] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (45ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:39:51.137] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:39:51.200] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (49ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:39:51.546] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:39:51.568] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:39:51.572] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:39:51.602] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (23ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:39:51.627] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 14:39:51.637] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:39:52.153] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 14:39:52.155] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 14:39:52.364] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 14:39:52.367] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 14:39:52.369] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 14:40:17.945] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 14:40:01 to 09/17/2027 14:40:01.
+[2026-09-17 14:40:40.419] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (12.5914 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 14:40:40.826] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (434.4387 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 14:41:52.674] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: 7fc4e6a6-bf0d-4b05-8eed-c8beeff48006
+[2026-09-17 14:41:52.870] [Error] [Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No route matches the supplied values.
+   at Microsoft.AspNetCore.Mvc.CreatedAtActionResult.OnFormatting(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncCore(ActionContext context, ObjectResult result, Type objectType, Object value)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsync(ActionContext context, ObjectResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+[2026-09-17 14:41:53.228] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (106ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 14:41:53.427] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 14:42:14.748] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 14:40:01 to 09/17/2027 14:40:01.
+[2026-09-17 14:42:16.858] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.1281 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 14:42:17.000] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (143.3933 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 14:42:26.102] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: cf935d77-088d-488d-967f-1a931d3f503c
+[2026-09-17 14:42:42.981] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (37ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 14:42:42.984] [Error] [Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No route matches the supplied values.
+   at Microsoft.AspNetCore.Mvc.CreatedAtActionResult.OnFormatting(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncCore(ActionContext context, ObjectResult result, Type objectType, Object value)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsync(ActionContext context, ObjectResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+[2026-09-17 14:45:13.120] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (135ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:45:13.227] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 14:45:13.311] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (70ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 14:45:13.742] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 14:45:13.770] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 14:45:13.776] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 14:45:13.790] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 14:45:13.815] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 14:45:13.829] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 14:45:14.363] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 14:45:14.367] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 14:45:14.677] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 14:45:14.704] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 14:45:14.710] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 14:45:30.634] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 14:45:21 to 10/17/2026 14:45:21.
+[2026-09-17 14:45:31.320] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (14.4428 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 14:45:31.736] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (448.8297 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 14:45:35.428] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: 35e885bd-64a9-4c99-9280-8aaba6a972bb
+[2026-09-17 14:45:43.498] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (133ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 14:46:01.465] [Information] [Claims.Controllers.CoversController] Fetching all covers.
+[2026-09-17 14:46:02.203] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 14:46:02.278] [Information] [Claims.Controllers.CoversController] Fetched 5 covers.
+[2026-09-17 14:46:24.416] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: f837c6fc-978c-4960-a506-c3b9d8275522, DamageCost: 200
+[2026-09-17 14:46:24.781] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 14:46:24.872] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.0729 ms) Collection='Claims.claims', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 14:46:24.944] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (72.1544 ms) Collection='Claims.claims', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 14:46:24.947] [Information] [Claims.Controllers.ClaimsController] Successfully created claim with ID: 4c473bdb-6fe2-4aa5-9066-597b92bc895d
+[2026-09-17 14:46:25.075] [Error] [Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: No route matches the supplied values.
+   at Microsoft.AspNetCore.Mvc.CreatedAtActionResult.OnFormatting(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsyncCore(ActionContext context, ObjectResult result, Type objectType, Object value)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.ExecuteAsync(ActionContext context, ObjectResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+[2026-09-17 14:46:25.333] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (13ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ClaimAudits] ([ClaimId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 15:03:35.164] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (64ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 15:03:35.256] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 15:03:35.333] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (65ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 15:03:35.934] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 15:03:35.969] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 15:03:35.974] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 15:03:35.996] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 15:03:36.024] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 15:03:36.085] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 15:03:58.570] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 15:03:58.573] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 15:03:59.455] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 15:03:59.458] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 15:03:59.460] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 15:04:20.604] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 15:04:08 to 11/17/2026 15:04:08.
+[2026-09-17 15:04:21.323] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (15.9256 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 15:04:21.801] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (516.4104 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 15:06:07.779] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: 4b16e715-d209-4d52-b5ba-4901b1418dbc
+[2026-09-17 15:06:50.311] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2,550ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 15:08:15.459] [Information] [Claims.Controllers.CoversController] Attempting to create a new cover of type Yacht from 09/17/2026 15:04:08 to 11/17/2026 15:04:08.
+[2026-09-17 15:08:15.534] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.0725 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 15:08:15.579] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (42.6872 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 15:08:15.608] [Information] [Claims.Controllers.CoversController] Cover created successfully with ID: 14dc8b42-7aee-4122-b60e-60b875fb205a
+[2026-09-17 15:08:50.203] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (19ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 16:50:48.038] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (55ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 16:50:48.099] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 16:50:48.161] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (52ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 16:50:48.603] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 16:50:48.631] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 16:50:48.635] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 16:50:48.645] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 16:50:48.658] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 16:50:48.666] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 16:50:49.376] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 16:50:49.378] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 16:50:49.985] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 16:50:49.989] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 16:50:49.992] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-17 16:51:03.481] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: string, DamageCost: 20
+[2026-09-17 16:51:04.583] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 16:51:04.616] [Warning] [Claims.Controllers.ClaimsController] Claim validation failed with 1 errors: The related Cover does not exist.
+[2026-09-17 16:51:14.007] [Information] [Claims.Controllers.CoversController] Fetching all covers.
+[2026-09-17 16:51:14.070] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 16:51:14.264] [Information] [Claims.Controllers.CoversController] Fetched 7 covers.
+[2026-09-17 16:51:28.657] [Information] [Claims.Controllers.ClaimsController] Attempting to create a new claim for CoverId: f837c6fc-978c-4960-a506-c3b9d8275522, DamageCost: 20
+[2026-09-17 16:51:28.702] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-17 16:51:28.954] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.2061 ms) Collection='Claims.claims', Insertions=1, Deletions=0, Modifications=0
+[2026-09-17 16:51:29.129] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (185.5279 ms) Collection='Claims.claims', Inserted=1, Deleted=0, Modified=0
+[2026-09-17 16:51:29.141] [Information] [Claims.Controllers.ClaimsController] Successfully created claim with ID: 13e8981d-b0b9-4b04-8f90-0747130ac2c4
+[2026-09-17 16:51:34.355] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (130ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ClaimAudits] ([ClaimId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-17 16:51:40.325] [Information] [Claims.Controllers.ClaimsController] Retrieving all claims.
+[2026-09-17 16:51:40.398] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.claims.aggregate([?])
+[2026-09-17 16:51:40.420] [Information] [Claims.Controllers.ClaimsController] Retrieved 2 claims successfully.
+[2026-09-17 17:16:36.030] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (49ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 17:16:36.086] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-17 17:16:36.141] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-17 17:16:36.522] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-17 17:16:36.540] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-17 17:16:36.543] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-17 17:16:36.551] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-17 17:16:36.576] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-17 17:16:36.583] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-17 17:16:37.213] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-17 17:16:37.215] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-17 17:16:37.399] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-17 17:16:37.401] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-17 17:16:37.407] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
