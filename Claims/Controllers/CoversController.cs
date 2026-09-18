@@ -69,7 +69,7 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
     /// <param name="id">The cover identifier.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The cover if found, or 404 if not found.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetCoverById")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Cover>> GetAsync(string id, CancellationToken cancellationToken)
@@ -106,7 +106,7 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
         }
 
         var created = await _coversService.CreateCoverAsync(cover, cancellationToken);
-        return Created("/covers",created);
+        return CreatedAtRoute("GetCoverById", new { id = created.Id, version = "1.0" }, created);
     }
 
     /// <summary>

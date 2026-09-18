@@ -42,7 +42,7 @@ namespace Claims.Controllers
         /// <param name="id">The claim identifier.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The claim if found, or 404 if not found.</returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetClaimById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Claim>> GetAsync(string id, CancellationToken cancellationToken)
@@ -88,7 +88,7 @@ namespace Claims.Controllers
             {
                 _logger.LogInformation("Successfully created claim with ID: {ClaimId}", created.Id);
             }
-            return Created("Claims", created);
+            return CreatedAtRoute("GetClaimById", new { id = created.Id, version = "1.0" }, created);
         }
 
         /// <summary>

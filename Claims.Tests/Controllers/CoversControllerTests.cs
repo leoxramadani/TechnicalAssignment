@@ -178,9 +178,9 @@ namespace Claims.Tests.Controllers
                 CancellationToken.None);
 
             // Assert
-            var createdResult = Assert.IsType<CreatedResult>(result.Result);
+            var createdResult = Assert.IsType<CreatedAtRouteResult>(result.Result);
 
-            Assert.Equal("/covers", createdResult.Location);
+            Assert.Equal("GetCoverById", createdResult.RouteName);
 
             var returnedCover = Assert.IsType<Cover>(createdResult.Value);
 

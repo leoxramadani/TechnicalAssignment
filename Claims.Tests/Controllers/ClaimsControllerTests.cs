@@ -174,9 +174,9 @@ namespace Claims.Tests.Controllers
 
             var result = await _controller.CreateAsync(claim, CancellationToken.None);
 
-            var createdResult = Assert.IsType<CreatedResult>(result.Result);
+            var createdResult = Assert.IsType<CreatedAtRouteResult>(result.Result);
 
-            Assert.Equal("Claims", createdResult.Location);
+            Assert.Equal("GetClaimById", createdResult.RouteName);
            
             var returnedClaim = Assert.IsType<Claim>(createdResult.Value);
             Assert.Equal(createdClaim.Id, returnedClaim.Id);
