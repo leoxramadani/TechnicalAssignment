@@ -9,10 +9,10 @@ namespace Claims.Domain.Entities
     public class Claim
     {
         [BsonId]
-        public string Id { get; set; }
-        public string CoverId { get; set; }
+        public string Id { get; set; } = String.Empty;
+        public string CoverId { get; set; } = String.Empty;
         public DateTime Created { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = String.Empty;
         public ClaimTypeEnum Type { get; set; }
         public decimal DamageCost { get; set; }
     }

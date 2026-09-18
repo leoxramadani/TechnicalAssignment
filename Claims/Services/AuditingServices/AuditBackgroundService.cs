@@ -1,20 +1,13 @@
 ﻿namespace Claims.Services.AuditingServices;
 
-public sealed class AuditBackgroundService : BackgroundService
+public sealed class AuditBackgroundService(
+    IAuditQueue queue,
+    IServiceScopeFactory scopeFactory,
+    ILogger<AuditBackgroundService> logger) : BackgroundService
 {
-    private readonly IAuditQueue _queue;
-    private readonly IServiceScopeFactory _scopeFactory;
-    private readonly ILogger<AuditBackgroundService> _logger;
-
-    public AuditBackgroundService(
-        IAuditQueue queue,
-        IServiceScopeFactory scopeFactory,
-        ILogger<AuditBackgroundService> logger)
-    {
-        _queue = queue;
-        _scopeFactory = scopeFactory;
-        _logger = logger;
-    }
+    private readonly IAuditQueue _queue = queue;
+    private readonly IServiceScopeFactory _scopeFactory = scopeFactory;
+    private readonly ILogger<AuditBackgroundService> _logger = logger;
 
     protected override async Task ExecuteAsync(
         CancellationToken stoppingToken)

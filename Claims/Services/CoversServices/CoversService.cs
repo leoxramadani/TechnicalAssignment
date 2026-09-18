@@ -9,19 +9,12 @@ namespace Claims.Services.CoversServices;
 /// <summary>
 /// Service implementing business workflows for insurance covers.
 /// </summary>
-public class CoversService : ICoversService
+public class CoversService(ClaimsContext claimsContext, IPremiumComputationService premiumComputationService, IAuditQueue auditQueue) : ICoversService
 {
-    private readonly ClaimsContext _claimsContext;
-    private readonly IPremiumComputationService _premiumComputationService;
-    private readonly IAuditQueue _auditQueue;
+    private readonly ClaimsContext _claimsContext = claimsContext;
+    private readonly IPremiumComputationService _premiumComputationService = premiumComputationService;
+    private readonly IAuditQueue _auditQueue = auditQueue;
 
-
-    public CoversService(ClaimsContext claimsContext,IPremiumComputationService premiumComputationService, IAuditQueue auditQueue)
-    {
-        _claimsContext = claimsContext;
-        _premiumComputationService = premiumComputationService;
-        _auditQueue = auditQueue;
-    }
     /// <summary>
     /// Retrieves all insurance covers from the database.
     /// </summary>

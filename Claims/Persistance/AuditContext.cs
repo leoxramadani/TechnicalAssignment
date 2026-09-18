@@ -3,11 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Claims.Persistance
 {
-    public class AuditContext : DbContext
+    public class AuditContext(DbContextOptions<AuditContext> options) : DbContext(options)
     {
-        public AuditContext(DbContextOptions<AuditContext> options) : base(options)
-        {
-        }
         /// <summary>
         /// Gets or sets the DbSet for ClaimAudit entities.
         /// </summary>

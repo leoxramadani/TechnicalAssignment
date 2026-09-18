@@ -35,8 +35,8 @@ namespace Claims.Tests.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim { Id = "1", Name = "Claim 1", Created = DateTime.UtcNow , DamageCost = 50},
-                new Claim { Id = "2", Name = "Claim 2", Created = DateTime.UtcNow , DamageCost = 100}
+                new() { Id = "1", Name = "Claim 1", Created = DateTime.UtcNow , DamageCost = 50},
+                new() { Id = "2", Name = "Claim 2", Created = DateTime.UtcNow , DamageCost = 100}
             };
 
 
@@ -62,7 +62,7 @@ namespace Claims.Tests.Controllers
         {
             _claimsServiceMock
                 .Setup(service => service.GetClaimsAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(Enumerable.Empty<Claim>());
+                .ReturnsAsync([]);
 
             var result = await _controller.GetAsync(CancellationToken.None);
 

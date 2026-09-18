@@ -28,18 +28,11 @@ public class FileLoggerProvider : ILoggerProvider
     }
 }
 
-public class FileLogger : ILogger
+public class FileLogger(string categoryName, string filePath, object @lock) : ILogger
 {
-    private readonly string _categoryName;
-    private readonly string _filePath;
-    private readonly object _lock;
-
-    public FileLogger(string categoryName, string filePath, object @lock)
-    {
-        _categoryName = categoryName;
-        _filePath = filePath;
-        _lock = @lock;
-    }
+    private readonly string _categoryName = categoryName;
+    private readonly string _filePath = filePath;
+    private readonly object _lock = @lock;
 
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
 

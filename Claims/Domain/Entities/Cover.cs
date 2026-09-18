@@ -9,7 +9,7 @@ namespace Claims.Domain.Entities;
 public class Cover
 {
     [BsonId]
-    public string Id { get; set; }
+    public string Id { get; set; } = String.Empty;
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public CoverTypeEnum Type { get; set; }

@@ -16,6 +16,7 @@ namespace Claims.Tests.Services.CoverServices
         private readonly IPremiumComputationService _premiumComputationService;
         private readonly Claims.Services.CoversServices.CoversService _sut;
         private readonly IAuditQueue _auditQueue;
+        private static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
 
         public CoversServiceTest()
         {
@@ -38,7 +39,7 @@ namespace Claims.Tests.Services.CoverServices
         [Fact]
         public async Task GetCoversAsync_NoClaims_ShouldReturnEmptyCollection()
         {
-            var result = await _sut.GetCoversAsync();
+            var result = await _sut.GetCoversAsync(CancellationToken);
 
             result.Should().BeEmpty();
         }
@@ -66,8 +67,8 @@ namespace Claims.Tests.Services.CoverServices
                 }
             };
             await _context.Covers.AddRangeAsync(covers);
-            await _context.SaveChangesAsync();
-            var result = await _sut.GetCoversAsync();
+            await _context.SaveChangesAsync(CancellationToken);
+            var result = await _sut.GetCoversAsync(CancellationToken);
             result.Should().HaveCount(2);
         }
         [Fact]
@@ -98,7 +99,7 @@ namespace Claims.Tests.Services.CoverServices
                 covers.EndDate,
                 covers.Type).Returns(150);
 
-            var result = await _sut.CreateCoverAsync(covers);
+            var result = await _sut.CreateCoverAsync(covers, CancellationToken);
 
             await _auditQueue.Received(1).EnqueueAsync(
                 Arg.Is<AuditMessage>(message =>
@@ -107,7 +108,7 @@ namespace Claims.Tests.Services.CoverServices
                     message.HttpRequestType == "POST"),
                 Arg.Any<CancellationToken>());
 
-            var persistedCover = await _context.Covers.SingleAsync(c => c.Id == result.Id);
+            var persistedCover = await _context.Covers.SingleAsync(c => c.Id == result.Id, CancellationToken);
             
             persistedCover.Should().NotBeNull();
             persistedCover.Id.Should().Be(result.Id);
@@ -133,8 +134,8 @@ namespace Claims.Tests.Services.CoverServices
                 EndDate = DateTime.UtcNow.AddDays(30),
                 Premium = 200
             };
-            var result1 = await _sut.CreateCoverAsync(cover1);
-            var result2 = await _sut.CreateCoverAsync(cover2);
+            var result1 = await _sut.CreateCoverAsync(cover1, CancellationToken);
+            var result2 = await _sut.CreateCoverAsync(cover2, CancellationToken);
             result1.Id.Should().NotBe(result2.Id);
         }
 
@@ -152,13 +153,13 @@ namespace Claims.Tests.Services.CoverServices
             };
 
             _context.Covers.Add(cover1);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(CancellationToken);
 
-            var result = await _sut.DeleteCoverAsync(cover1.Id);
+            var result = await _sut.DeleteCoverAsync(cover1.Id, CancellationToken);
 
             result.Should().BeTrue();
 
-            var deletedCover = await _context.Covers.FirstOrDefaultAsync(c => c.Id == cover1.Id);
+            var deletedCover = await _context.Covers.FirstOrDefaultAsync(c => c.Id == cover1.Id, CancellationToken);
             deletedCover.Should().BeNull();
         }
 
@@ -174,9 +175,9 @@ namespace Claims.Tests.Services.CoverServices
                 Premium = 100
             };
             _context.Covers.Add(cover1);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(CancellationToken);
 
-            var result = await _sut.GetCoverByIdAsync(cover1.Id);
+            var result = await _sut.GetCoverByIdAsync(cover1.Id, CancellationToken);
 
             result.Should().NotBeNull();
             result.Id.Should().Be(cover1.Id);

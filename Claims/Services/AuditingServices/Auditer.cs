@@ -4,14 +4,9 @@ using Claims.Domain.Entities;
 
 namespace Claims.Services.AuditingServices
 {
-    public class Auditer : IAuditService
+    public class Auditer(AuditContext auditContext) : IAuditService
     {
-        private readonly AuditContext _auditContext;
-
-        public Auditer(AuditContext auditContext)
-        {
-            _auditContext = auditContext;
-        }
+        private readonly AuditContext _auditContext = auditContext;
 
         public async Task AuditAsync(
             AuditMessage message,

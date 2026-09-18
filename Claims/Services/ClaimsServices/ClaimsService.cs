@@ -8,17 +8,12 @@ namespace Claims.Services.ClaimsServices;
 /// <summary>
 /// Service implementing business workflows for insurance claims.
 /// </summary>
-public class ClaimsService : IClaimsService
+public class ClaimsService(
+        ClaimsContext claimsContext,
+        IAuditQueue auditQueue) : IClaimsService
 {
-    private readonly ClaimsContext _claimsContext;
-    private readonly IAuditQueue _auditQueue;
-    public ClaimsService(
-            ClaimsContext claimsContext,
-            IAuditQueue auditQueue)
-    {
-        _claimsContext = claimsContext;
-        _auditQueue = auditQueue;
-    }
+    private readonly ClaimsContext _claimsContext = claimsContext;
+    private readonly IAuditQueue _auditQueue = auditQueue;
 
     /// <summary>
     /// Retrieves all claims from the database.

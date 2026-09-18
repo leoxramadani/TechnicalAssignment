@@ -4,6 +4,7 @@ using Claims.Services.CoversServices;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Asp.Versioning;
+using System.Linq;
 
 namespace Claims.Controllers;
 
@@ -14,18 +15,11 @@ namespace Claims.Controllers;
 [ApiVersion("1.0")]
 [Route("v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
-public class CoversController : ControllerBase
+public class CoversController(ILogger<CoversController> logger, ICoversService coversService, IValidator<Cover> validator) : ControllerBase
 {
-    private readonly ILogger<CoversController> _logger;
-    private readonly ICoversService _coversService;
-    private readonly IValidator<Cover> _validator;
-
-    public CoversController(ILogger<CoversController> logger, ICoversService coversService, IValidator<Cover> validator)
-    {
-        _logger = logger;
-        _coversService = coversService;
-        _validator = validator;
-    }
+    private readonly ILogger<CoversController> _logger = logger;
+    private readonly ICoversService _coversService = coversService;
+    private readonly IValidator<Cover> _validator = validator;
 
     /// <summary>
     /// Computes the insurance premium for a specified period and cover type.
@@ -39,9 +33,15 @@ public class CoversController : ControllerBase
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public ActionResult<decimal> ComputePremium(DateTime startDate, DateTime endDate, CoverTypeEnum coverType)
     {
-        _logger.LogInformation("Computing premium for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", coverType, startDate, endDate);
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation("Computing premium for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", coverType, startDate, endDate);
+        }
         var premium = _coversService.ComputePremium(startDate, endDate, coverType);
-        _logger.LogInformation("Computed premium: {Premium} for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", premium, coverType, startDate, endDate);
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation("Computed premium: {Premium} for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", premium, coverType, startDate, endDate);
+        }
         return Ok(premium);
     }
 
@@ -55,7 +55,11 @@ public class CoversController : ControllerBase
     {
         _logger.LogInformation("Fetching all covers.");
         var results = await _coversService.GetCoversAsync(cancellationToken);
-        _logger.LogInformation("Fetched {Count} covers.", results.Count());
+        if (_logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Information))
+        {
+            var count = results is System.Collections.Generic.ICollection<Cover> coll ? coll.Count : results.Count();
+            _logger.LogInformation("Fetched {Count} covers.", count);
+        }
         return Ok(results);
     }
 
@@ -91,15 +95,17 @@ public class CoversController : ControllerBase
     public async Task<ActionResult<Cover>> CreateAsync([FromBody] Cover cover, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(cover, cancellationToken);
-        _logger.LogInformation("Attempting to create a new cover of type {CoverType} from {StartDate} to {EndDate}.", cover.Type, cover.StartDate, cover.EndDate);
         if (!validationResult.IsValid)
         {
-            _logger.LogError("Validation failed for cover creation: {Errors}", validationResult.Errors);
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                var errors = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+                _logger.LogError("Validation failed for cover creation: {Errors}", errors);
+            }
             return BadRequest(validationResult.Errors);
         }
 
         var created = await _coversService.CreateCoverAsync(cover, cancellationToken);
-        _logger.LogInformation("Cover created successfully with ID: {Id}", created.Id);
         return Created("/covers",created);
     }
 
@@ -115,14 +121,20 @@ public class CoversController : ControllerBase
     public async Task<IActionResult> DeleteAsync(string id, CancellationToken cancellationToken)
     {
         var deleted = await _coversService.DeleteCoverAsync(id, cancellationToken);
-        _logger.LogInformation("Attempting to delete cover with ID: {Id}", id);
+
         if (!deleted)
         {
-            _logger.LogWarning("Cover with ID: {Id} not found for deletion.", id);
+            if (_logger.IsEnabled(LogLevel.Warning))
+            {
+                _logger.LogWarning("Cover with ID: {Id} not found for deletion.", id);
+            }
             return NotFound();
         }
         
-        _logger.LogInformation("Cover with ID: {Id} deleted successfully.", id);
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation("Cover with ID: {Id} deleted successfully.", id);
+        }
         return NoContent();
     }
 }

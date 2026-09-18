@@ -11,6 +11,7 @@ public class ClaimRegistrationValidatorTests
 {
     private readonly ICoversService _coversService;
     private readonly ClaimServiceValidator _validator;
+    private static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
 
     public ClaimRegistrationValidatorTests()
     {
@@ -32,7 +33,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.DamageCost);
@@ -50,7 +51,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.DamageCost)
@@ -72,7 +73,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.CoverId);
@@ -94,7 +95,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.CoverId)
@@ -124,7 +125,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Created)
@@ -153,7 +154,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Created)
@@ -182,7 +183,7 @@ public class ClaimRegistrationValidatorTests
         };
 
         // Act
-        var result = await _validator.TestValidateAsync(claim);
+        var result = await _validator.TestValidateAsync(claim, cancellationToken: CancellationToken);
 
         // Assert
         result.ShouldNotHaveAnyValidationErrors();

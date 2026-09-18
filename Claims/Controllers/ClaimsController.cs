@@ -13,18 +13,11 @@ namespace Claims.Controllers
     [ApiVersion("1.0")]
     [Route("v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
-    public class ClaimsController : ControllerBase
+    public class ClaimsController(ILogger<ClaimsController> logger, IClaimsService claimsService, IValidator<Claim> validator) : ControllerBase
     {
-        private readonly ILogger<ClaimsController> _logger;
-        private readonly IClaimsService _claimsService;
-        private readonly IValidator<Claim> _validator;
-
-        public ClaimsController(ILogger<ClaimsController> logger, IClaimsService claimsService, IValidator<Claim> validator)
-        {
-            _logger = logger;
-            _claimsService = claimsService;
-            _validator = validator;
-        }
+        private readonly ILogger<ClaimsController> _logger = logger;
+        private readonly IClaimsService _claimsService = claimsService;
+        private readonly IValidator<Claim> _validator = validator;
 
         /// <summary>
         /// Retrieves all claims.
@@ -34,10 +27,12 @@ namespace Claims.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Claim>>> GetAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Retrieving all claims.");
             var claims = await _claimsService.GetClaimsAsync(cancellationToken);
             var claimList = claims.ToList();
-            _logger.LogInformation("Retrieved {Count} claims successfully.", claimList.Count);
+            if(_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Retrieved {Count} claims successfully.", claimList.Count);
+            }
             return Ok(claimList);
         }
 
@@ -52,7 +47,6 @@ namespace Claims.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Claim>> GetAsync(string id, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Retrieving claim with ID: {ClaimId}", id);
             var claim = await _claimsService.GetClaimByIdAsync(id, cancellationToken);
             if (claim is null)
             {
@@ -60,7 +54,10 @@ namespace Claims.Controllers
                 return NotFound();
             }
 
-            _logger.LogInformation("Successfully retrieved claim with ID: {ClaimId}", id);
+            if(_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Successfully retrieved claim with ID: {ClaimId}", id);
+            }
             return Ok(claim);
         }
 
@@ -76,7 +73,6 @@ namespace Claims.Controllers
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Claim>> CreateAsync([FromBody] Claim claim, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Attempting to create a new claim for CoverId: {CoverId}, DamageCost: {DamageCost}", claim.CoverId, claim.DamageCost);
 
             var validationResult = await _validator.ValidateAsync(claim, cancellationToken);
             if (!validationResult.IsValid)
@@ -88,7 +84,10 @@ namespace Claims.Controllers
             }
 
             var created = await _claimsService.CreateClaimAsync(claim, cancellationToken);
-            _logger.LogInformation("Successfully created claim with ID: {ClaimId}", created.Id);
+            if(_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Successfully created claim with ID: {ClaimId}", created.Id);
+            }
             return Created("Claims", created);
         }
 
@@ -103,7 +102,6 @@ namespace Claims.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteAsync(string id, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Attempting to delete claim with ID: {ClaimId}", id);
             var deleted = await _claimsService.DeleteClaimAsync(id, cancellationToken);
             if (!deleted)
             {
@@ -111,7 +109,10 @@ namespace Claims.Controllers
                 return NotFound();
             }
 
-            _logger.LogInformation("Successfully deleted claim with ID: {ClaimId}", id);
+            if(_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Successfully deleted claim with ID: {ClaimId}", id);
+            }
             return NoContent();
         }
     }

@@ -18,6 +18,7 @@ namespace Claims.Tests.Services.ClaimServices
         private readonly ClaimsService _sut;
         private readonly IAuditService _auditService;
         private readonly IAuditQueue _auditQueue;
+        private static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
 
         public ClaimServiceTest()
         {
@@ -40,7 +41,7 @@ namespace Claims.Tests.Services.ClaimServices
         public async Task GetClaimsAsync_WhenThereAreNoClaims_ShouldReturnEmptyCollection()
         {
             // Act
-            var result = await _sut.GetClaimsAsync();
+            var result = await _sut.GetClaimsAsync(CancellationToken);
 
             // Assert
             result.Should().BeEmpty();
@@ -72,10 +73,10 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             _context.Claims.AddRange(claims);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(CancellationToken);
 
             // Act
-            var result = await _sut.GetClaimsAsync();
+            var result = await _sut.GetClaimsAsync(CancellationToken);
 
             // Assert
             var resultList = result.ToList();
@@ -112,11 +113,11 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             // Act
-            var result = await _sut.CreateClaimAsync(claim);
+            var result = await _sut.CreateClaimAsync(claim, CancellationToken);
 
             // Assert
             var persistedClaim = await _context.Claims
-                .SingleAsync(c => c.Id == result.Id);
+                .SingleAsync(c => c.Id == result.Id, CancellationToken);
 
             persistedClaim.Should().NotBeNull();
             persistedClaim.Id.Should().Be(result.Id);
@@ -137,7 +138,7 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             // Act
-            var result = await _sut.CreateClaimAsync(claim);
+            var result = await _sut.CreateClaimAsync(claim, CancellationToken);
 
             // Assert
             result.Id.Should().NotBeNullOrEmpty();
@@ -161,7 +162,7 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             // Act
-            var result = await _sut.CreateClaimAsync(claim);
+            var result = await _sut.CreateClaimAsync(claim, CancellationToken);
 
             // Assert
             result.Should().BeSameAs(claim);
@@ -183,7 +184,7 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             // Act
-            await _sut.CreateClaimAsync(claim);
+            await _sut.CreateClaimAsync(claim, CancellationToken);
 
             // Assert
             await _auditQueue.Received(1).EnqueueAsync(
@@ -219,8 +220,8 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             // Act
-            var result1 = await _sut.CreateClaimAsync(claim1);
-            var result2 = await _sut.CreateClaimAsync(claim2);
+            var result1 = await _sut.CreateClaimAsync(claim1, CancellationToken);
+            var result2 = await _sut.CreateClaimAsync(claim2, CancellationToken);
 
             // Assert
             result1.Id.Should().NotBe(result2.Id);
@@ -242,13 +243,13 @@ namespace Claims.Tests.Services.ClaimServices
             };
 
             _context.Claims.Add(claim1);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(CancellationToken);
 
-            var result = await _sut.DeleteClaimAsync(claim1.Id);
+            var result = await _sut.DeleteClaimAsync(claim1.Id, CancellationToken);
 
             result.Should().BeTrue();
 
-            var deletedClaim = await _context.Claims.FirstOrDefaultAsync(c => c.Id == claim1.Id);
+            var deletedClaim = await _context.Claims.FirstOrDefaultAsync(c => c.Id == claim1.Id, CancellationToken);
             deletedClaim.Should().BeNull();
         }
 
@@ -267,9 +268,9 @@ namespace Claims.Tests.Services.ClaimServices
                 Type = ClaimTypeEnum.Collision
             };
             _context.Claims.Add(claim);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(CancellationToken);
             // Act
-            var result = await _sut.GetClaimByIdAsync(claim.Id);
+            var result = await _sut.GetClaimByIdAsync(claim.Id, CancellationToken);
             // Assert
             result.Should().NotBeNull();
             result.Id.Should().Be(claim.Id);

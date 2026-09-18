@@ -4,7 +4,7 @@ using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace Claims.Persistance;
 
-public class ClaimsContext : DbContext
+public class ClaimsContext(DbContextOptions<ClaimsContext> options) : DbContext(options)
 {
     /// <summary>
     /// Gets or sets the DbSet for Claim entities.
@@ -14,10 +14,6 @@ public class ClaimsContext : DbContext
     /// Gets or sets the DbSet for Cover entities.
     /// </summary>
     public DbSet<Cover> Covers { get; set; } = null!;
-
-    public ClaimsContext(DbContextOptions<ClaimsContext> options) : base(options)
-        {
-        }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

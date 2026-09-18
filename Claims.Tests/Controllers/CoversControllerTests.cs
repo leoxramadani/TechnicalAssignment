@@ -38,8 +38,8 @@ namespace Claims.Tests.Controllers
         {
             var covers = new List<Cover>
             {
-                new Cover { Id = "1",Premium = 100, StartDate=DateTime.UtcNow, EndDate = DateTime.UtcNow.AddYears(1) },
-                new Cover { Id = "2",Premium = 200, StartDate=DateTime.UtcNow, EndDate = DateTime.UtcNow.AddYears(1) }
+                new() { Id = "1",Premium = 100, StartDate=DateTime.UtcNow, EndDate = DateTime.UtcNow.AddYears(1) },
+                new() { Id = "2",Premium = 200, StartDate=DateTime.UtcNow, EndDate = DateTime.UtcNow.AddYears(1) }
             };
 
 
@@ -65,14 +65,14 @@ namespace Claims.Tests.Controllers
             // Arrange
             _coversService
                 .Setup(service => service.GetCoversAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(Enumerable.Empty<Cover>());
+                .ReturnsAsync([]);
 
             // Act
             var result = await _controller.GetAsync(CancellationToken.None);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            var returnedCovers = Assert.IsAssignableFrom<IEnumerable<Cover>>(okResult.Value);
+            var returnedCovers = Assert.IsType<IEnumerable<Cover>>(okResult.Value, exactMatch: false);
 
             Assert.Empty(returnedCovers);
 
