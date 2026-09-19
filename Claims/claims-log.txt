@@ -1094,3 +1094,141 @@ VALUES (@p0, @p1, @p2);
 [2026-09-18 21:28:53.997] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
 Claims.claims.aggregate([?])
 [2026-09-18 21:28:54.023] [Information] [Claims.Controllers.ClaimsController] Successfully retrieved claim with ID: 790a7130-0b06-4b58-a6c0-00a7943b57f4
+[2026-09-19 10:26:30.273] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (36ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-19 10:26:30.296] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-19 10:26:30.326] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (23ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-19 10:26:30.648] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-19 10:26:30.670] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-19 10:26:30.673] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-19 10:26:30.685] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-19 10:26:30.702] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-19 10:26:30.708] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-19 10:26:31.127] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-19 10:26:31.130] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-19 10:26:31.898] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-19 10:26:31.900] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-19 10:26:31.903] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-19 10:26:55.758] [Warning] [Claims.Controllers.CoversController] ComputePremium validation failed for CoverType: BulkCarrier, StartDate: 01/01/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:27:16.760] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: BulkCarrier, StartDate: 09/19/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:27:16.766] [Information] [Claims.Controllers.CoversController] Computed premium: 166595.000 for CoverType: BulkCarrier, StartDate: 09/19/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:27:25.336] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: Yacht, StartDate: 09/19/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:27:25.339] [Information] [Claims.Controllers.CoversController] Computed premium: 137912.500 for CoverType: Yacht, StartDate: 09/19/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:28:00.857] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: Yacht, StartDate: 09/19/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:30:01.405] [Information] [Claims.Controllers.CoversController] Computed premium: 137912.500 for CoverType: Yacht, StartDate: 09/19/2026 00:00:00, EndDate: 01/01/2027 00:00:00
+[2026-09-19 10:30:13.912] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: Yacht, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:30:39.281] [Information] [Claims.Controllers.CoversController] Computed premium: 8250.000 for CoverType: Yacht, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:30:48.633] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: BulkCarrier, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:30:50.342] [Information] [Claims.Controllers.CoversController] Computed premium: 9750.000 for CoverType: BulkCarrier, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:30:53.769] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: Tanker, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:30:55.407] [Information] [Claims.Controllers.CoversController] Computed premium: 11250.000 for CoverType: Tanker, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:31:08.379] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:31:10.295] [Information] [Claims.Controllers.CoversController] Computed premium: 9000.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:32:03.218] [Warning] [Claims.Controllers.CoversController] ComputePremium validation failed for CoverType: PassengerShip, StartDate: 09/18/2026 00:00:00, EndDate: 09/25/2026 00:00:00
+[2026-09-19 10:32:20.286] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2026 00:00:00
+[2026-09-19 10:32:22.925] [Information] [Claims.Controllers.CoversController] Computed premium: 0.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2026 00:00:00
+[2026-09-19 10:32:31.576] [Warning] [Claims.Controllers.CoversController] ComputePremium validation failed for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/18/2026 00:00:00
+[2026-09-19 10:32:52.726] [Warning] [Claims.Controllers.CoversController] ComputePremium validation failed for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/20/2027 00:00:00
+[2026-09-19 10:32:58.611] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2027 00:00:00
+[2026-09-19 10:33:00.215] [Information] [Claims.Controllers.CoversController] Computed premium: 534675.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2027 00:00:00
+[2026-09-19 10:53:03.544] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (30ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-19 10:53:03.567] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-19 10:53:03.601] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (28ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-19 10:53:03.843] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-19 10:53:03.864] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-19 10:53:03.867] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-19 10:53:03.878] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-19 10:53:03.895] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-19 10:53:03.901] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-19 10:53:04.377] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-19 10:53:04.378] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-19 10:53:04.553] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-19 10:53:04.554] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-19 10:53:04.556] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-19 10:54:14.757] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2026 00:00:00
+[2026-09-19 10:54:14.762] [Information] [Claims.Controllers.CoversController] Computed premium: 0.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2026 00:00:00
+[2026-09-19 10:54:23.389] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2027 00:00:00
+[2026-09-19 10:54:23.392] [Information] [Claims.Controllers.CoversController] Computed premium: 534675.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2027 00:00:00
+[2026-09-19 10:54:30.525] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/21/2026 00:00:00
+[2026-09-19 10:54:30.528] [Information] [Claims.Controllers.CoversController] Computed premium: 3000.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/21/2026 00:00:00
+[2026-09-19 10:54:34.682] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: EndDate must be greater than or equal to StartDate.
+[2026-09-19 10:55:08.521] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: The total insurance period cannot exceed 1 year.
+[2026-09-19 10:55:19.464] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: StartDate cannot be in the past.
+[2026-09-19 10:55:27.755] [Information] [Claims.Controllers.CoversController] Computing premium for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2026 00:00:00
+[2026-09-19 10:55:27.758] [Information] [Claims.Controllers.CoversController] Computed premium: 0.000 for CoverType: PassengerShip, StartDate: 09/19/2026 00:00:00, EndDate: 09/19/2026 00:00:00
+[2026-09-19 11:36:05.038] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (162ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-19 11:36:05.123] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-19 11:36:05.328] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (173ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-19 11:36:05.875] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-19 11:36:05.897] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-19 11:36:05.900] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-19 11:36:05.914] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-19 11:36:05.932] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-19 11:36:05.939] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-19 11:36:06.818] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-19 11:36:06.821] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-19 11:36:07.136] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-19 11:36:07.143] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-19 11:36:07.148] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-19 11:39:44.441] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: EndDate must be after StartDate. Same-day covers are not allowed.
+[2026-09-19 11:39:57.866] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: EndDate must be after StartDate. Same-day covers are not allowed.
+[2026-09-19 11:40:05.951] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: The total insurance period cannot exceed 1 year.

@@ -1,4 +1,4 @@
-﻿using Claims.Controllers;
+using Claims.Controllers;
 using Claims.Domain.Entities;
 using Claims.Domain.Enums;
 using Claims.Services.CoversServices;
@@ -20,6 +20,9 @@ namespace Claims.Tests.Controllers
         private readonly Mock<IValidator<Cover>> _validatorMock;
         private readonly CoversController _controller;
 
+        // Uses the real validator so ComputePremium tests exercise actual FluentValidation rules.
+        private readonly CoversController _controllerWithRealValidator;
+
         public CoversControllerTests()
         {
             _loggerMock = new Mock<ILogger<CoversController>>();
@@ -30,6 +33,11 @@ namespace Claims.Tests.Controllers
                 _loggerMock.Object,
                 _coversService.Object,
                 _validatorMock.Object);
+
+            _controllerWithRealValidator = new CoversController(
+                _loggerMock.Object,
+                _coversService.Object,
+                new CoverRegistrationValidator());
         }
 
 
@@ -226,6 +234,101 @@ namespace Claims.Tests.Controllers
                     coverId,
                     It.IsAny<CancellationToken>()),
                 Times.Once);
+        }
+
+        // ── ComputePremium ────────────────────────────────────────────────
+
+        [Fact]
+        public void ComputePremium_WithValidDates_ShouldReturnOk()
+        {
+            // Arrange
+            var startDate = DateTime.UtcNow.Date.AddDays(1);
+            var endDate   = startDate.AddDays(30);
+            const decimal expectedPremium = 50_000m;
+
+            _coversService
+                .Setup(s => s.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht))
+                .Returns(expectedPremium);
+
+            // Act
+            var result = _controllerWithRealValidator.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            Assert.Equal(expectedPremium, okResult.Value);
+
+            _coversService.Verify(s => s.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht), Times.Once);
+        }
+
+        [Fact]
+        public void ComputePremium_WithReversedPeriod_ShouldReturnBadRequest()
+        {
+            // Arrange – endDate is before startDate (the originally reported bug)
+            var startDate = DateTime.UtcNow.Date.AddDays(10);
+            var endDate   = startDate.AddDays(-11); // reversed
+
+            // Act
+            var result = _controllerWithRealValidator.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht);
+
+            // Assert – must be 400, never a negative premium
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+
+            _coversService.Verify(
+                s => s.ComputePremium(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<CoverTypeEnum>()),
+                Times.Never);
+        }
+
+        [Fact]
+        public void ComputePremium_WithSameDayPeriod_ShouldReturnBadRequest()
+        {
+            // Arrange – same-day cover produces a zero-day period and £0 premium
+            var startDate = DateTime.UtcNow.Date.AddDays(1);
+
+            // Act
+            var result = _controllerWithRealValidator.ComputePremium(startDate, startDate, CoverTypeEnum.Yacht);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+
+            _coversService.Verify(
+                s => s.ComputePremium(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<CoverTypeEnum>()),
+                Times.Never);
+        }
+
+        [Fact]
+        public void ComputePremium_WithStartDateInThePast_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var startDate = DateTime.UtcNow.Date.AddDays(-5);
+            var endDate   = startDate.AddDays(30);
+
+            // Act
+            var result = _controllerWithRealValidator.ComputePremium(startDate, endDate, CoverTypeEnum.Tanker);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+
+            _coversService.Verify(
+                s => s.ComputePremium(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<CoverTypeEnum>()),
+                Times.Never);
+        }
+
+        [Fact]
+        public void ComputePremium_WithPeriodExceedingOneYear_ShouldReturnBadRequest()
+        {
+            // Arrange
+            var startDate = DateTime.UtcNow.Date.AddDays(1);
+            var endDate   = startDate.AddYears(1).AddDays(1); // just over 1 year
+
+            // Act
+            var result = _controllerWithRealValidator.ComputePremium(startDate, endDate, CoverTypeEnum.PassengerShip);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+
+            _coversService.Verify(
+                s => s.ComputePremium(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<CoverTypeEnum>()),
+                Times.Never);
         }
 
     }

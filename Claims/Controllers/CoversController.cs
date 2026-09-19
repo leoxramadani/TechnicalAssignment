@@ -33,6 +33,17 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public ActionResult<decimal> ComputePremium(DateTime startDate, DateTime endDate, CoverTypeEnum coverType)
     {
+        var validationResult = _validator.Validate(new Cover {  StartDate = startDate, EndDate = endDate, Type = coverType });
+        if (!validationResult.IsValid)
+        {
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                var errors = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+                _logger.LogError("Validation failed for cover creation: {Errors}", errors);
+            }
+            return BadRequest(validationResult.Errors);
+        }
+
         if (_logger.IsEnabled(LogLevel.Information))
         {
             _logger.LogInformation("Computing premium for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", coverType, startDate, endDate);

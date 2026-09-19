@@ -64,7 +64,26 @@ public class CoverRegistrationValidatorTests
 
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.EndDate)
-            .WithErrorMessage("EndDate must be greater than or equal to StartDate.");
+            .WithErrorMessage("EndDate must be after StartDate. Same-day covers are not allowed.");
+    }
+
+    [Fact]
+    public void Validate_WhenEndDateEqualToStartDate_ShouldHaveValidationError()
+    {
+        // Arrange – same-day cover produces a zero-day period and £0 premium
+        var today = DateTime.UtcNow.Date.AddDays(1);
+        var cover = new Cover
+        {
+            StartDate = today,
+            EndDate = today
+        };
+
+        // Act
+        var result = _validator.TestValidate(cover);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.EndDate)
+            .WithErrorMessage("EndDate must be after StartDate. Same-day covers are not allowed.");
     }
 
     [Fact]
@@ -89,12 +108,12 @@ public class CoverRegistrationValidatorTests
     [Fact]
     public void Validate_WhenCoverIsValid_ShouldNotHaveAnyValidationErrors()
     {
-        // Arrange
+        // Arrange – endDate must be strictly after startDate
         var startDate = DateTime.UtcNow.Date.AddDays(1);
         var cover = new Cover
         {
             StartDate = startDate,
-            EndDate = startDate.AddYears(1) // exactly 1 year
+            EndDate = startDate.AddDays(1) // minimum valid cover: 1 day
         };
 
         // Act
