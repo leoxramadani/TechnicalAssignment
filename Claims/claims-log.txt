@@ -1232,3 +1232,60 @@ SELECT @result
 [2026-09-19 11:39:44.441] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: EndDate must be after StartDate. Same-day covers are not allowed.
 [2026-09-19 11:39:57.866] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: EndDate must be after StartDate. Same-day covers are not allowed.
 [2026-09-19 11:40:05.951] [Error] [Claims.Controllers.CoversController] Validation failed for cover creation: The total insurance period cannot exceed 1 year.
+[2026-09-20 17:13:15.347] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (62ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-20 17:13:15.441] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-20 17:13:15.517] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (63ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-20 17:13:16.030] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-20 17:13:16.058] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-20 17:13:16.061] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-20 17:13:16.078] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-20 17:13:16.097] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-20 17:13:16.105] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-20 17:13:55.029] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-20 17:13:55.031] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-20 17:13:55.787] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-20 17:13:55.800] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-20 17:13:55.803] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-20 17:14:17.788] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (8.6978 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-20 17:14:18.090] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (284.7321 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-20 17:17:02.378] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (94ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-20 17:20:07.499] [Information] [Claims.Controllers.CoversController] Fetching all covers.
+[2026-09-20 17:20:07.980] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-20 17:20:08.039] [Information] [Claims.Controllers.CoversController] Fetched 13 covers.
+[2026-09-20 17:20:29.243] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed MQL query
+Claims.covers.aggregate([?])
+[2026-09-20 17:20:29.321] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (0.0625 ms) Collection='Claims.claims', Insertions=1, Deletions=0, Modifications=0
+[2026-09-20 17:20:29.333] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (11.768 ms) Collection='Claims.claims', Inserted=1, Deleted=0, Modified=0
+[2026-09-20 17:21:32.098] [Information] [Claims.Controllers.ClaimsController] Successfully created claim with ID: 4ca9cd97-11b6-447e-9c03-c9ec2c2d7ca0
+[2026-09-20 17:22:18.893] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (15ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ClaimAudits] ([ClaimId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);

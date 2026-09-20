@@ -1,6 +1,7 @@
-﻿namespace Claims.Services.AuditingServices;
+namespace Claims.Services.AuditingServices;
 
 public sealed record AuditMessage(
     string EntityId,
     string EntityType,
-    string HttpRequestType);
+    string HttpRequestType,
+    DateTime? Timestamp = null);

@@ -1,4 +1,4 @@
-﻿namespace Claims.Services.AuditingServices
+namespace Claims.Services.AuditingServices
 {
     public interface IAuditService
     {
@@ -6,5 +6,8 @@
             AuditMessage message,
             CancellationToken cancellationToken = default);
 
+        Task AuditBatchAsync(
+            IReadOnlyList<AuditMessage> messages,
+            CancellationToken cancellationToken = default);
     }
 }

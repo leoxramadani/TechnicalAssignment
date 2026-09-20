@@ -1,6 +1,5 @@
-﻿using Claims.Domain;
-using Claims.Persistance;
 using Claims.Domain.Entities;
+using Claims.Persistance;
 
 namespace Claims.Services.AuditingServices
 {
@@ -8,33 +7,64 @@ namespace Claims.Services.AuditingServices
     {
         private readonly AuditContext _auditContext = auditContext;
 
-        public async Task AuditAsync(
+        public Task AuditAsync(
             AuditMessage message,
             CancellationToken cancellationToken = default)
         {
-            switch (message.EntityType)
+            ArgumentNullException.ThrowIfNull(message);
+            return AuditBatchAsync([message], cancellationToken);
+        }
+
+        public async Task AuditBatchAsync(
+            IReadOnlyList<AuditMessage> messages,
+            CancellationToken cancellationToken = default)
+        {
+            if (messages is null || messages.Count == 0)
             {
-                case "Claim":
-                    _auditContext.ClaimAudits.Add(new ClaimAudit
-                    {
-                        Created = DateTime.UtcNow,
-                        HttpRequestType = message.HttpRequestType,
-                        ClaimId = message.EntityId
-                    });
-                    break;
+                return;
+            }
 
-                case "Cover":
-                    _auditContext.CoverAudits.Add(new CoverAudit
-                    {
-                        Created = DateTime.UtcNow,
-                        HttpRequestType = message.HttpRequestType,
-                        CoverId = message.EntityId
-                    });
-                    break;
+            var claimAudits = new List<ClaimAudit>();
+            var coverAudits = new List<CoverAudit>();
 
-                default:
-                    throw new ArgumentException(
-                        $"Unsupported entity type: {message.EntityType}");
+            foreach (var message in messages)
+            {
+                var created = message.Timestamp ?? DateTime.UtcNow;
+
+                switch (message.EntityType)
+                {
+                    case "Claim":
+                        claimAudits.Add(new ClaimAudit
+                        {
+                            Created = created,
+                            HttpRequestType = message.HttpRequestType,
+                            ClaimId = message.EntityId
+                        });
+                        break;
+
+                    case "Cover":
+                        coverAudits.Add(new CoverAudit
+                        {
+                            Created = created,
+                            HttpRequestType = message.HttpRequestType,
+                            CoverId = message.EntityId
+                        });
+                        break;
+
+                    default:
+                        throw new ArgumentException(
+                            $"Unsupported entity type: {message.EntityType}");
+                }
+            }
+
+            if (claimAudits.Count > 0)
+            {
+                _auditContext.ClaimAudits.AddRange(claimAudits);
+            }
+
+            if (coverAudits.Count > 0)
+            {
+                _auditContext.CoverAudits.AddRange(coverAudits);
             }
 
             await _auditContext.SaveChangesAsync(cancellationToken);
