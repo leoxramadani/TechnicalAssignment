@@ -3,7 +3,6 @@ using Claims.Domain.Entities;
 using Claims.Domain.Enums;
 using Claims.Filters;
 using Claims.Services.CoversServices;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claims.Controllers;
@@ -15,11 +14,10 @@ namespace Claims.Controllers;
 [ApiVersion("1.0")]
 [Route("v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
-public class CoversController(ILogger<CoversController> logger, ICoversService coversService, IValidator<Cover> validator) : ControllerBase
+public class CoversController(ILogger<CoversController> logger, ICoversService coversService) : ControllerBase
 {
     private readonly ILogger<CoversController> _logger = logger;
     private readonly ICoversService _coversService = coversService;
-    private readonly IValidator<Cover> _validator = validator;
 
     /// <summary>
     /// Computes the insurance premium for a specified period and cover type.
@@ -34,21 +32,6 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public ActionResult<decimal> ComputePremium(DateTime startDate, DateTime endDate, CoverTypeEnum coverType)
     {
-        var validationResult = _validator.Validate(new Cover {  StartDate = startDate, EndDate = endDate, Type = coverType });
-        if (!validationResult.IsValid)
-        {
-            if (_logger.IsEnabled(LogLevel.Error))
-            {
-                var errors = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
-                _logger.LogError("Validation failed for cover creation: {Errors}", errors);
-            }
-            return BadRequest(validationResult.Errors);
-        }
-
-        if (_logger.IsEnabled(LogLevel.Information))
-        {
-            _logger.LogInformation("Computing premium for CoverType: {CoverType}, StartDate: {StartDate}, EndDate: {EndDate}", coverType, startDate, endDate);
-        }
         var premium = _coversService.ComputePremium(startDate, endDate, coverType);
         if (_logger.IsEnabled(LogLevel.Information))
         {

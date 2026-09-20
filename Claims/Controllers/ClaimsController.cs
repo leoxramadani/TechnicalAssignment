@@ -2,7 +2,6 @@ using Asp.Versioning;
 using Claims.Domain.Entities;
 using Claims.Filters;
 using Claims.Services.ClaimsServices;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Claims.Controllers
@@ -14,7 +13,7 @@ namespace Claims.Controllers
     [ApiVersion("1.0")]
     [Route("v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
-    public class ClaimsController(ILogger<ClaimsController> logger, IClaimsService claimsService, IValidator<Claim> validator) : ControllerBase
+    public class ClaimsController(ILogger<ClaimsController> logger, IClaimsService claimsService) : ControllerBase
     {
         private readonly ILogger<ClaimsController> _logger = logger;
         private readonly IClaimsService _claimsService = claimsService;
