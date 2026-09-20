@@ -196,11 +196,7 @@ namespace Claims.Tests.Controllers
             Assert.Equal(createdCover.Type, returnedCover.Type);
             Assert.Equal(createdCover.Premium, returnedCover.Premium);
 
-            _validatorMock.Verify(
-                validator => validator.ValidateAsync(
-                    cover,
-                    It.IsAny<CancellationToken>()),
-                Times.Once);
+
 
             _coversService.Verify(
                 service => service.CreateCoverAsync(

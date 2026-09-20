@@ -1289,3 +1289,47 @@ SET NOCOUNT ON;
 INSERT INTO [ClaimAudits] ([ClaimId], [Created], [HttpRequestType])
 OUTPUT INSERTED.[Id]
 VALUES (@p0, @p1, @p2);
+[2026-09-20 18:39:31.959] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (62ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-20 18:39:31.988] [Information] [Microsoft.EntityFrameworkCore.Migrations] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+[2026-09-20 18:39:32.048] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (53ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+[2026-09-20 18:39:32.539] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+[2026-09-20 18:39:32.560] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+[2026-09-20 18:39:32.563] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[2026-09-20 18:39:32.582] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[2026-09-20 18:39:32.603] [Information] [Microsoft.EntityFrameworkCore.Migrations] No migrations were applied. The database is already up to date.
+[2026-09-20 18:39:32.613] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+[2026-09-20 18:39:40.019] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7052
+[2026-09-20 18:39:40.021] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5052
+[2026-09-20 18:39:40.549] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-09-20 18:39:40.551] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-09-20 18:39:40.581] [Information] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\LeoTr\source\repos\TechnicalAssessment\backend-coding-task\Claims
+[2026-09-20 18:40:01.212] [Information] [Microsoft.EntityFrameworkCore.Update] Executing Bulk Write (11.7972 ms) Collection='Claims.covers', Insertions=1, Deletions=0, Modifications=0
+[2026-09-20 18:40:01.481] [Information] [Microsoft.EntityFrameworkCore.Update] Executed Bulk Write (297.115 ms) Collection='Claims.covers', Inserted=1, Deleted=0, Modified=0
+[2026-09-20 18:40:13.155] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (85ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [CoverAudits] ([CoverId], [Created], [HttpRequestType])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+[2026-09-20 18:41:21.662] [Warning] [Claims.Filters.ValidationFilter] Cover validation failed with 1 errors: EndDate must be after StartDate. Same-day covers are not allowed.
+[2026-09-20 18:41:50.036] [Warning] [Claims.Filters.ValidationFilter] Cover validation failed with 1 errors: The total insurance period cannot exceed 1 year.

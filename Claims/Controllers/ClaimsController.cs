@@ -1,8 +1,9 @@
+using Asp.Versioning;
 using Claims.Domain.Entities;
+using Claims.Filters;
 using Claims.Services.ClaimsServices;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Asp.Versioning;
 
 namespace Claims.Controllers
 {
@@ -17,7 +18,6 @@ namespace Claims.Controllers
     {
         private readonly ILogger<ClaimsController> _logger = logger;
         private readonly IClaimsService _claimsService = claimsService;
-        private readonly IValidator<Claim> _validator = validator;
 
         /// <summary>
         /// Retrieves all claims.
@@ -69,20 +69,11 @@ namespace Claims.Controllers
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The created claim.</returns>
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilter))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Claim>> CreateAsync([FromBody] Claim claim, CancellationToken cancellationToken)
         {
-
-            var validationResult = await _validator.ValidateAsync(claim, cancellationToken);
-            if (!validationResult.IsValid)
-            {
-                _logger.LogWarning("Claim validation failed with {Count} errors: {Errors}",
-                    validationResult.Errors.Count,
-                    string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)));
-                return BadRequest(validationResult.Errors);
-            }
-
             var created = await _claimsService.CreateClaimAsync(claim, cancellationToken);
             if(_logger.IsEnabled(LogLevel.Information))
             {

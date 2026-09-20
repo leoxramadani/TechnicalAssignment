@@ -30,6 +30,8 @@ public class ClaimsControllerLoggingTests : IDisposable
         });
 
         _logger = loggerFactory.CreateLogger<ClaimsController>();
+        var filterLogger = loggerFactory.CreateLogger<Claims.Filters.ValidationFilter>();
+        var filter = new Claims.Filters.ValidationFilter(filterLogger);
         _claimsService = Substitute.For<IClaimsService>();
         _validator = Substitute.For<IValidator<Claim>>();
 
@@ -51,27 +53,6 @@ public class ClaimsControllerLoggingTests : IDisposable
         Assert.True(File.Exists(_testLogFile));
         var logContent = await File.ReadAllTextAsync(_testLogFile, CancellationToken);
         Assert.Contains("Retrieved 1 claims successfully", logContent);
-    }
-
-    [Fact]
-    public async Task CreateAsync_WhenValidationFails_WritesWarningToLogFile()
-    {
-        // Arrange
-        var claim = new Claim { Id = "claim-1", CoverId = "c1", DamageCost = 200_000 };
-        _validator.ValidateAsync(claim, Arg.Any<CancellationToken>())
-            .Returns(new ValidationResult(
-            [
-                new ValidationFailure("DamageCost", "DamageCost cannot exceed 100,000.")
-            ]));
-
-        // Act
-        var result = await _controller.CreateAsync(claim, CancellationToken.None);
-
-        // Assert
-        Assert.IsType<BadRequestObjectResult>(result.Result);
-        var logContent = await File.ReadAllTextAsync(_testLogFile, CancellationToken);
-        Assert.Contains("[Warning]", logContent);
-        Assert.Contains("Claim validation failed with 1 errors", logContent);
     }
 
     [Fact]

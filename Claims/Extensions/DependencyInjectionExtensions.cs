@@ -1,4 +1,5 @@
-﻿using Claims.Helpers.PremiumComputation;
+﻿using Claims.Filters;
+using Claims.Helpers.PremiumComputation;
 using Claims.Services.AuditingServices;
 using Claims.Services.ClaimsServices;
 using Claims.Services.CoversServices;
@@ -23,6 +24,7 @@ public static class DependencyInjectionExtensions
         builder.Services.AddScoped<IPremiumComputationService, PremiumComputationService>();
         builder.Services.AddScoped<IClaimsService, ClaimsService>();
         builder.Services.AddScoped<ICoversService, CoversService>();
+        builder.Services.AddScoped<ValidationFilter>();
 
         builder.Services.AddSingleton<IAuditQueue, AuditQueue>();
         builder.Services.AddHostedService<AuditBackgroundService>();

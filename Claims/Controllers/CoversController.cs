@@ -1,10 +1,10 @@
+using Asp.Versioning;
 using Claims.Domain.Entities;
 using Claims.Domain.Enums;
+using Claims.Filters;
 using Claims.Services.CoversServices;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Asp.Versioning;
-using System.Linq;
 
 namespace Claims.Controllers;
 
@@ -29,6 +29,7 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
     /// <param name="coverType">Type of cover.</param>
     /// <returns>The computed premium amount.</returns>
     [HttpPost("compute")]
+    [ServiceFilter(typeof(ValidationFilter))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public ActionResult<decimal> ComputePremium(DateTime startDate, DateTime endDate, CoverTypeEnum coverType)
@@ -66,9 +67,9 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
     {
         _logger.LogInformation("Fetching all covers.");
         var results = await _coversService.GetCoversAsync(cancellationToken);
-        if (_logger.IsEnabled(Microsoft.Extensions.Logging.LogLevel.Information))
+        if (_logger.IsEnabled(LogLevel.Information))
         {
-            var count = results is System.Collections.Generic.ICollection<Cover> coll ? coll.Count : results.Count();
+            var count = results is ICollection<Cover> coll ? coll.Count : results.Count();
             _logger.LogInformation("Fetched {Count} covers.", count);
         }
         return Ok(results);
@@ -101,21 +102,11 @@ public class CoversController(ILogger<CoversController> logger, ICoversService c
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The created cover with computed premium.</returns>
     [HttpPost]
+    [ServiceFilter(typeof(ValidationFilter))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Cover>> CreateAsync([FromBody] Cover cover, CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(cover, cancellationToken);
-        if (!validationResult.IsValid)
-        {
-            if (_logger.IsEnabled(LogLevel.Error))
-            {
-                var errors = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
-                _logger.LogError("Validation failed for cover creation: {Errors}", errors);
-            }
-            return BadRequest(validationResult.Errors);
-        }
-
         var created = await _coversService.CreateCoverAsync(cover, cancellationToken);
         return CreatedAtRoute("GetCoverById", new { id = created.Id, version = "1.0" }, created);
     }

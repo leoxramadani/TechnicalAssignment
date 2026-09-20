@@ -183,12 +183,6 @@ namespace Claims.Tests.Controllers
             Assert.Equal(createdClaim.CoverId, returnedClaim.CoverId);
             Assert.Equal(createdClaim.DamageCost, returnedClaim.DamageCost);
 
-            _validatorMock.Verify(
-                validator => validator.ValidateAsync(
-                    claim,
-                    It.IsAny<CancellationToken>()),
-                Times.Once);
-
             _claimsServiceMock.Verify(
                 service => service.CreateClaimAsync(
                     claim,
