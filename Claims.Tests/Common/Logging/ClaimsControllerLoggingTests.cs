@@ -1,11 +1,11 @@
 namespace Claims.Tests.Common.Logging;
 
-using Claims.Common.Logging;
-using Claims.Controllers;
+using Claims.Api.Controllers;
+using Claims.Api.Filters;
+using Claims.Application.Claims;
 using Claims.Domain.Entities;
-using Claims.Services.ClaimsServices;
+using Claims.Infrastructure.Common.Logging;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -30,8 +30,8 @@ public class ClaimsControllerLoggingTests : IDisposable
         });
 
         _logger = loggerFactory.CreateLogger<ClaimsController>();
-        var filterLogger = loggerFactory.CreateLogger<Claims.Filters.ValidationFilter>();
-        var filter = new Claims.Filters.ValidationFilter(filterLogger);
+        var filterLogger = loggerFactory.CreateLogger<ValidationFilter>();
+        var filter = new ValidationFilter(filterLogger);
         _claimsService = Substitute.For<IClaimsService>();
         _validator = Substitute.For<IValidator<Claim>>();
 

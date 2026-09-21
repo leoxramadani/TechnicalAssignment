@@ -1,8 +1,9 @@
-﻿using Claims.Domain.Entities;
+﻿using Claims.Application.Auditing;
+using Claims.Application.Covers;
+using Claims.Domain.Entities;
 using Claims.Domain.Enums;
-using Claims.Helpers.PremiumComputation;
-using Claims.Persistance;
-using Claims.Services.AuditingServices;
+using Claims.Domain.Services;
+using Claims.Infrastructure.Persistence;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
@@ -14,7 +15,7 @@ namespace Claims.Tests.Services.CoverServices
     {
         private readonly ClaimsContext _context;
         private readonly IPremiumComputationService _premiumComputationService;
-        private readonly Claims.Services.CoversServices.CoversService _sut;
+        private readonly CoversService _sut;
         private readonly IAuditQueue _auditQueue;
         private static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
 
@@ -29,7 +30,7 @@ namespace Claims.Tests.Services.CoverServices
             _premiumComputationService = Substitute.For<IPremiumComputationService>();
             _auditQueue = Substitute.For<IAuditQueue>();
 
-            _sut = new Claims.Services.CoversServices.CoversService(
+            _sut = new CoversService(
                 _context,
                 _premiumComputationService,
                 _auditQueue);
@@ -180,7 +181,7 @@ namespace Claims.Tests.Services.CoverServices
             var result = await _sut.GetCoverByIdAsync(cover1.Id, CancellationToken);
 
             result.Should().NotBeNull();
-            result.Id.Should().Be(cover1.Id);
+            result?.Id.Should().Be(cover1.Id);
         }
 
     }

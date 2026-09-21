@@ -1,8 +1,8 @@
 namespace Claims.Tests.Services.ClaimServices;
 
+using Claims.Application.Claims;
+using Claims.Application.Covers;
 using Claims.Domain.Entities;
-using Claims.Services.ClaimsServices;
-using Claims.Services.CoversServices;
 using FluentValidation.TestHelper;
 using NSubstitute;
 using Xunit;

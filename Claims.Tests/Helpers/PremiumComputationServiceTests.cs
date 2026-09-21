@@ -1,5 +1,5 @@
 ﻿using Claims.Domain.Enums;
-using Claims.Helpers.PremiumComputation;
+using Claims.Domain.Services;
 using Xunit;
 
 namespace Claims.Tests.Helpers

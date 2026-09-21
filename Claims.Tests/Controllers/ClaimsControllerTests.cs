@@ -1,6 +1,6 @@
-﻿using Claims.Controllers;
+﻿using Claims.Api.Controllers;
+using Claims.Application.Claims;
 using Claims.Domain.Entities;
-using Claims.Services.ClaimsServices;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;

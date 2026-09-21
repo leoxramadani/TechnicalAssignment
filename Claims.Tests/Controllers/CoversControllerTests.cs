@@ -1,7 +1,7 @@
-using Claims.Controllers;
+using Claims.Api.Controllers;
+using Claims.Application.Covers;
 using Claims.Domain.Entities;
 using Claims.Domain.Enums;
-using Claims.Services.CoversServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -21,10 +21,6 @@ namespace Claims.Tests.Controllers
         {
             _loggerMock = new Mock<ILogger<CoversController>>();
             _coversService = new Mock<ICoversService>();
-
-            _controller = new CoversController(
-                _loggerMock.Object,
-                _coversService.Object);
 
             _controller = new CoversController(
                 _loggerMock.Object,
@@ -64,14 +60,14 @@ namespace Claims.Tests.Controllers
             // Arrange
             _coversService
                 .Setup(service => service.GetCoversAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync([]);
+                .ReturnsAsync(new List<Cover>());
 
             // Act
             var result = await _controller.GetAsync(CancellationToken.None);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            var returnedCovers = Assert.IsType<IEnumerable<Cover>>(okResult.Value, exactMatch: false);
+            var returnedCovers = Assert.IsAssignableFrom<IEnumerable<Cover>>(okResult.Value);
 
             Assert.Empty(returnedCovers);
 
@@ -215,6 +211,13 @@ namespace Claims.Tests.Controllers
                     coverId,
                     It.IsAny<CancellationToken>()),
                 Times.Once);
+            Assert.IsType<NoContentResult>(result);
+
+            _coversService.Verify(
+                service => service.DeleteCoverAsync(
+                    coverId,
+                    It.IsAny<CancellationToken>()),
+                Times.Once);
         }
 
         // ── ComputePremium 
@@ -236,7 +239,8 @@ namespace Claims.Tests.Controllers
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(expectedPremium, okResult.Value);
+            var returned = Assert.IsType<decimal>(okResult.Value);
+            Assert.Equal(expectedPremium, returned);
 
             _coversService.Verify(s => s.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht), Times.Once);
         }
@@ -256,7 +260,8 @@ namespace Claims.Tests.Controllers
             var result = _controller.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht);
 
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(0m, okResult.Value);
+            var returned = Assert.IsType<decimal>(okResult.Value);
+            Assert.Equal(0m, returned);
 
             _coversService.Verify(
                 s => s.ComputePremium(startDate, endDate, CoverTypeEnum.Yacht),
@@ -277,7 +282,8 @@ namespace Claims.Tests.Controllers
             var result = _controller.ComputePremium(startDate, startDate, CoverTypeEnum.Yacht);
 
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(0m, okResult.Value);
+            var returned = Assert.IsType<decimal>(okResult.Value);
+            Assert.Equal(0m, returned);
 
             _coversService.Verify(
                 s => s.ComputePremium(startDate, startDate, CoverTypeEnum.Yacht),
@@ -299,7 +305,8 @@ namespace Claims.Tests.Controllers
             var result = _controller.ComputePremium(startDate, endDate, CoverTypeEnum.Tanker);
 
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(123m, okResult.Value);
+            var returned = Assert.IsType<decimal>(okResult.Value);
+            Assert.Equal(123m, returned);
 
             _coversService.Verify(
                 s => s.ComputePremium(startDate, endDate, CoverTypeEnum.Tanker),
@@ -321,7 +328,8 @@ namespace Claims.Tests.Controllers
             var result = _controller.ComputePremium(startDate, endDate, CoverTypeEnum.PassengerShip);
 
             var okResult = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(999m, okResult.Value);
+            var returned = Assert.IsType<decimal>(okResult.Value);
+            Assert.Equal(999m, returned);
 
             _coversService.Verify(
                 s => s.ComputePremium(startDate, endDate, CoverTypeEnum.PassengerShip),

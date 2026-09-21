@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Claims.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchUrl": "swagger/index.html",
+      "applicationUrl": "http://localhost:58744"
+    }
+  }
+}

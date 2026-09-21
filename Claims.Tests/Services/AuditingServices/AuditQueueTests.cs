@@ -1,4 +1,5 @@
-using Claims.Services.AuditingServices;
+using Claims.Application.Auditing;
+using Claims.Infrastructure.Auditing;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

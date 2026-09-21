@@ -1,9 +1,8 @@
-﻿using Claims.Domain;
+﻿using Claims.Application.Auditing;
+using Claims.Application.Claims;
 using Claims.Domain.Entities;
 using Claims.Domain.Enums;
-using Claims.Persistance;
-using Claims.Services.AuditingServices;
-using Claims.Services.ClaimsServices;
+using Claims.Infrastructure.Persistence;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NSubstitute;
@@ -273,7 +272,7 @@ namespace Claims.Tests.Services.ClaimServices
             var result = await _sut.GetClaimByIdAsync(claim.Id, CancellationToken);
             // Assert
             result.Should().NotBeNull();
-            result.Id.Should().Be(claim.Id);
+            result?.Id.Should().Be(claim.Id);
         }
     }
 }

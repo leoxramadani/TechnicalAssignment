@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -33,6 +33,21 @@
     <PackageReference Include="SSH.NET" Version="2026.0.0" />
     <PackageReference Include="Snappier" Version="1.3.1" />
     <PackageReference Include="SharpCompress" Version="0.48.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Claims.Application\Claims.Application.csproj" />
+    <ProjectReference Include="..\Claims.Infrastructure\Claims.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Enums\" />
+    <Folder Include="Helpers\PremiumComputation\" />
+    <Folder Include="Persistance\Migrations\" />
+    <Folder Include="Services\AuditingServices\" />
+    <Folder Include="Services\ClaimsServices\" />
+    <Folder Include="Services\CoversServices\" />
   </ItemGroup>
 
 </Project>

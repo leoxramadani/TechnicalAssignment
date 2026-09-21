@@ -1,6 +1,6 @@
-using Claims.Domain.Entities;
+using Claims.Application.Auditing;
+using Claims.Infrastructure.Auditing;
 using Claims.Persistance;
-using Claims.Services.AuditingServices;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
