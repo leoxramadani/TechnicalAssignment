@@ -30,8 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Fakes\Controllers\" />
-    <Folder Include="Fakes\Filters\" />
     <Folder Include="Services\AuditingServices\" />
   </ItemGroup>
 
