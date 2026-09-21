@@ -35,7 +35,7 @@ public class ClaimsControllerLoggingTests : IDisposable
         _claimsService = Substitute.For<IClaimsService>();
         _validator = Substitute.For<IValidator<Claim>>();
 
-        _controller = new ClaimsController(_logger, _claimsService, _validator);
+        _controller = new ClaimsController(_logger, _claimsService);
     }
 
     [Fact]

@@ -25,8 +25,7 @@ namespace Claims.Tests.Controllers
 
             _controller = new ClaimsController(
                 _loggerMock.Object,
-                _claimsServiceMock.Object,
-                _validatorMock.Object);
+                _claimsServiceMock.Object);
         }
 
 
